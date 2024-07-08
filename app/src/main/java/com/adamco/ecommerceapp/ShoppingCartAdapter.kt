@@ -29,7 +29,7 @@ class ShoppingCartAdapter(
                 txtItem.text = item.name
                 itemImg.setImageResource(item.itemImg)
                 txtItemDesc.text = item.description
-                txtItemPrice.text = item.itemPrice.toString()
+                txtItemPriceUpdate.text = item.itemPrice.toString()
                 txtItemCount.text = item.itemQuantity.toString()
                 txtTotalPrice.text = (item.itemPrice * item.itemQuantity).toString()
 
