@@ -5,24 +5,24 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.adamco.ecommerceapp.databinding.CheckingoutItemDetailsBinding
 
-class CheckingOutPageAdapter(
+class SummaryPageAdapter(
     private val items: MutableList<ItemTotal>,
     private val databaseHelper: DatabaseHelper,
     private val onCartUpdated: (Double) -> Unit
-) : RecyclerView.Adapter<CheckingOutPageAdapter.CheckingOutViewHolder>() {
+) : RecyclerView.Adapter<SummaryPageAdapter.SummaryPageViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CheckingOutViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SummaryPageViewHolder {
         val binding = CheckingoutItemDetailsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return CheckingOutViewHolder(binding)
+        return SummaryPageViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: CheckingOutViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: SummaryPageViewHolder, position: Int) {
         holder.bind(items[position])
     }
 
     override fun getItemCount() = items.size
 
-    inner class CheckingOutViewHolder(private val binding: CheckingoutItemDetailsBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class SummaryPageViewHolder(private val binding: CheckingoutItemDetailsBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ItemTotal) {
             with(binding) {
                 txtItem.text = item.name
