@@ -3,6 +3,7 @@ package com.adamco.ecommerceapp
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -32,8 +33,7 @@ class Dashboard : AppCompatActivity() {
 
             btnLogout.setOnClickListener {
                 SharedPreferencesManager.clearAllPref()
-                val signedOutIntent = Intent(this@Dashboard, SignInActivity::class.java)
-                startActivity(signedOutIntent)
+                showLogoutDialog()
             }
 
             btnCart.setOnClickListener {
@@ -43,6 +43,23 @@ class Dashboard : AppCompatActivity() {
 
         }
 
+    }
+    private fun showLogoutDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.apply {
+            setTitle("Logout")
+            setMessage("Are you sure you want to logout?")
+            setPositiveButton("Yes") { _, _ ->
+                finish()
+            }
+            setNegativeButton("No, go back.") { dialog, _ ->
+                dialog.dismiss()
+            }
+        }
+
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.setCancelable(false)
+        alertDialog.show()
     }
 
     private fun getData() = mutableListOf(
