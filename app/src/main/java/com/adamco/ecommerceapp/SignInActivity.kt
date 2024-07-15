@@ -4,10 +4,20 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.adamco.ecommerceapp.data.LoginUserFailureResponse
+import com.adamco.ecommerceapp.data.LoginUserRequest
+import com.adamco.ecommerceapp.data.LoginUserSuccessResponse
 import com.adamco.ecommerceapp.databinding.ActivitySignInBinding
+import com.adamco.ecommerceapp.remote.ApiClient
+import com.adamco.ecommerceapp.remote.ApiServices
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SignInActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignInBinding
+    private lateinit var email : String
+    private lateinit var password : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,8 +31,8 @@ class SignInActivity : AppCompatActivity() {
         checkIsUserLoggedIn()
         with(binding) {
             btnSignin.setOnClickListener {
-                val email = emailInput.text.toString()
-                val password = passInput.text.toString()
+                email = emailInput.text.toString()
+                password = passInput.text.toString()
 
                 if (!isValidEmail(email)) {
                     Toast.makeText(this@SignInActivity, "Please enter a valid email address", Toast.LENGTH_SHORT).show()
@@ -34,7 +44,7 @@ class SignInActivity : AppCompatActivity() {
                     return@setOnClickListener
                 }
 
-                saveUserInfo(email, password)
+                loginApi()
             }
 
             returnhome.setOnClickListener {
@@ -48,6 +58,57 @@ class SignInActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun loginApi() {
+        val loginUserRequest = LoginUserRequest(email, password)
+        val apiServices = ApiClient.retrofit.create(ApiServices::class.java)
+        val call: Call<LoginUserSuccessResponse> = apiServices.postLogin(loginUserRequest)
+
+        call.enqueue(object : Callback<LoginUserSuccessResponse> {
+            override fun onResponse(call: Call<LoginUserSuccessResponse>, response: Response<LoginUserSuccessResponse>) {
+                if (response.isSuccessful) {
+                    val loginSuccessResponse = response.body()
+                    if (loginSuccessResponse != null) {
+                        if (loginSuccessResponse.status == 0) {
+                            Toast.makeText(
+                                this@SignInActivity,
+                                loginSuccessResponse.message ?: "Success",
+                                Toast.LENGTH_LONG
+                            ).show()
+                            saveUserInfo(email, password)
+                        } else {
+                            Toast.makeText(
+                                this@SignInActivity,
+                                loginSuccessResponse.message ?: "Login failed, please retry.",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                    } else {
+                        Toast.makeText(
+                            this@SignInActivity,
+                            "Unexpected response from server.",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                } else {
+                    Toast.makeText(
+                        this@SignInActivity,
+                        "Login failed: ${response.errorBody()?.string() ?: "Unknown error"}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+
+            override fun onFailure(call: Call<LoginUserSuccessResponse>, t: Throwable) {
+                Toast.makeText(
+                    this@SignInActivity,
+                    t.message ?: "Login failed, please retry.",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        })
+    }
+
 
     private fun isValidEmail(email: String): Boolean {
         return email.contains("@") && (email.contains(".com") || email.contains(".net") || email.contains(".org") || email.contains(".edu"))

@@ -31,7 +31,7 @@ class ItemCategoryAdapter(
                 itemImg.setImageResource(itemCategory.itemImg)
                 txtItemDesc.text = itemCategory.itemDesc
                 txtRating.text = itemCategory.itemRating.toString()
-                txtItemPriceUpdate.text = "200" // Assuming a default price, this should be dynamically set based on your data
+                txtItemPriceUpdate.text = "200" 
 
                 txtAddtoCart.setOnClickListener {
                     val existingItem = databaseHelper.getItemByName(itemCategory.itemName)

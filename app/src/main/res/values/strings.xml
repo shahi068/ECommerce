@@ -27,4 +27,6 @@
     <string name="place_holder_address">123 Main Street\nApt. 4B\nSpringfield, IL 62704\nUSA</string>
     <string name="payment_option_placeholder">Payment Option</string>
     <string name="payment_option_choice">Cash On Delivery</string>
+    <string name="phone_number">Phone number</string>
+    <string name="full_name">Full name</string>
 </resources>
