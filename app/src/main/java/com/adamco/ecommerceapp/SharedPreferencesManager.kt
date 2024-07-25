@@ -14,15 +14,17 @@ object SharedPreferencesManager {
     const val PASSWORD = "password"
 
     fun init(context: Context) {
-        val masterAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
+        if (!::sharedPreferences.isInitialized) {
+            val masterAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
 
-        sharedPreferences = EncryptedSharedPreferences.create(
-            PREF_FILE_NAME,
-            masterAlias,
-            context,
-            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-        )
+            sharedPreferences = EncryptedSharedPreferences.create(
+                PREF_FILE_NAME,
+                masterAlias,
+                context,
+                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+            )
+        }
     }
 
     fun saveString(key: String, value: String) {

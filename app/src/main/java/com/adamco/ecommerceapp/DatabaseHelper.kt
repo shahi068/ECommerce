@@ -5,6 +5,8 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.adamco.ecommerceapp.model.DatabaseConstants
+import com.adamco.ecommerceapp.model.data.item.ItemTotal
 
 class DatabaseHelper(context: Context) : SQLiteOpenHelper(
     context,

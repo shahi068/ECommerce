@@ -15,25 +15,25 @@
         android:theme="@style/Theme.EcommerceApp"
         tools:targetApi="31">
         <activity
-            android:name=".SubcategoryActivity"
+            android:name=".view.SubcategoryActivity"
             android:exported="false" />
         <activity
-            android:name=".SummaryPage"
+            android:name=".view.SummaryPage"
             android:exported="false" />
         <activity
-            android:name=".PaymentPage"
+            android:name=".view.PaymentPage"
             android:exported="false" />
         <activity
-            android:name=".DeliveryPage"
+            android:name=".view.DeliveryPage"
             android:exported="false" />
         <activity
-            android:name=".CheckingOutPage"
+            android:name=".view.CheckingOutPage"
             android:exported="false" />
         <activity
-            android:name=".ItemsFromCategory"
+            android:name=".view.ItemsFromCategory"
             android:exported="false" />
         <activity
-            android:name=".ShoppingCartPage"
+            android:name=".view.ShoppingCartPage"
             android:exported="false" />
         <activity
             android:name=".ShoppingCart"
@@ -42,16 +42,16 @@
             android:name=".dashboard_item"
             android:exported="false" />
         <activity
-            android:name=".Dashboard"
+            android:name=".view.Dashboard"
             android:exported="false" />
         <activity
-            android:name=".SignUpActivity"
+            android:name=".view.SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".SignInActivity"
+            android:name=".view.SignInActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".view.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
