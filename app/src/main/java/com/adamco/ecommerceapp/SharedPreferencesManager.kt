@@ -12,6 +12,7 @@ object SharedPreferencesManager {
     const val IS_LOGGED_IN = "isLoggedIn"
     const val USER_EMAIL = "userEmail"
     const val PASSWORD = "password"
+    const val USER_ID = "user_id"
 
     fun init(context: Context) {
         if (!::sharedPreferences.isInitialized) {

@@ -58,7 +58,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
                 val description = getString(getColumnIndexOrThrow(DatabaseConstants.COLUMN_DESCRIPTION))
                 val price = getDouble(getColumnIndexOrThrow(DatabaseConstants.COLUMN_PRICE))
                 val quantity = getInt(getColumnIndexOrThrow(DatabaseConstants.COLUMN_QUANTITY))
-                val image = getInt(getColumnIndexOrThrow(DatabaseConstants.COLUMN_IMAGE))
+                val image = getString(getColumnIndexOrThrow(DatabaseConstants.COLUMN_IMAGE))
 
                 itemTotalList.add(ItemTotal(itemID = id, name = name, description = description, itemPrice = price, itemQuantity = quantity, itemImg = image))
             }
@@ -104,7 +104,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
             val description = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseConstants.COLUMN_DESCRIPTION))
             val price = cursor.getDouble(cursor.getColumnIndexOrThrow(DatabaseConstants.COLUMN_PRICE))
             val quantity = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseConstants.COLUMN_QUANTITY))
-            val image = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseConstants.COLUMN_IMAGE))
+            val image = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseConstants.COLUMN_IMAGE))
 
             ItemTotal(itemID = id, name = name, description = description, itemPrice = price, itemQuantity = quantity, itemImg = image)
         } else {

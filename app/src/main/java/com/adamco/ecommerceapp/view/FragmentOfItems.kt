@@ -16,16 +16,20 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import android.util.Log
+import com.adamco.ecommerceapp.DatabaseHelper
 
 class FragmentOfItems : Fragment() {
     private lateinit var binding: FragmentOfItemsBinding
     private var subCategoryId: String? = null
+    private lateinit var databaseHelper: DatabaseHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             subCategoryId = it.getString("subcategory_id")
         }
+        // Initialize the DatabaseHelper
+        databaseHelper = DatabaseHelper(requireContext())
     }
 
     override fun onCreateView(
@@ -63,7 +67,7 @@ class FragmentOfItems : Fragment() {
                     return
                 }
 
-                val adapter = FragmentOfItemsAdapter(responseBody.products)
+                val adapter = FragmentOfItemsAdapter(responseBody.products, databaseHelper)
                 binding.recyclerView.adapter = adapter
             }
 
@@ -84,3 +88,4 @@ class FragmentOfItems : Fragment() {
             }
     }
 }
+

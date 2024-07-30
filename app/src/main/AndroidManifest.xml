@@ -15,6 +15,9 @@
         android:theme="@style/Theme.EcommerceApp"
         tools:targetApi="31">
         <activity
+            android:name=".view.fragments_for_checkout.CheckingOutTabLayout"
+            android:exported="false" />
+        <activity
             android:name=".view.SubcategoryActivity"
             android:exported="false" />
         <activity

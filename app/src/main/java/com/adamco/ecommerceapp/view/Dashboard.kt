@@ -2,24 +2,32 @@ package com.adamco.ecommerceapp.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.GridLayoutManager
+import com.adamco.ecommerceapp.R
 import com.adamco.ecommerceapp.SharedPreferencesManager
 import com.adamco.ecommerceapp.databinding.ActivityDashboardBinding
 import com.adamco.ecommerceapp.model.adapters.DashboardAdapter
 import com.adamco.ecommerceapp.model.data.product_data.CategoryRequestResponse
 import com.adamco.ecommerceapp.model.remote.ApiClient
 import com.adamco.ecommerceapp.model.remote.ApiServices
+import com.google.android.material.navigation.NavigationView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class Dashboard : AppCompatActivity() {
+class Dashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var binding: ActivityDashboardBinding
     private lateinit var dashAdapter: DashboardAdapter
+    private lateinit var drawerLayout: androidx.drawerlayout.widget.DrawerLayout
+    private lateinit var toggle: ActionBarDrawerToggle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +42,23 @@ class Dashboard : AppCompatActivity() {
     }
 
     private fun initViews() {
+        drawerLayout = binding.main
+        setSupportActionBar(binding.toolbar)
+
+        toggle = ActionBarDrawerToggle(
+            this, drawerLayout, binding.toolbar,
+            R.string.navigation_drawer_open, R.string.navigation_drawer_close
+        )
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setHomeAsUpIndicator(R.drawable.baseline_menu_24)
+        }
+
+        binding.navView.setNavigationItemSelectedListener(this)
+
         with(binding) {
             val userEmail = SharedPreferencesManager.getString(SharedPreferencesManager.USER_EMAIL)
 
@@ -70,16 +95,6 @@ class Dashboard : AppCompatActivity() {
             })
 
             // END OF API WORK
-
-            btnLogout.setOnClickListener {
-                SharedPreferencesManager.clearAllPref()
-                showLogoutDialog()
-            }
-
-            btnCart.setOnClickListener {
-                val cartIntent = Intent(this@Dashboard, ShoppingCartPage::class.java)
-                startActivity(cartIntent)
-            }
         }
     }
 
@@ -99,5 +114,59 @@ class Dashboard : AppCompatActivity() {
         val alertDialog: AlertDialog = builder.create()
         alertDialog.setCancelable(false)
         alertDialog.show()
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.nav_home -> toastCreator("Home selected")
+            R.id.nav_cart -> {
+                val cartIntent = Intent(this, ShoppingCartPage::class.java)
+                startActivity(cartIntent)
+            }
+            R.id.nav_orders -> toastCreator("Orders selected")
+            R.id.nav_profile -> toastCreator("Profile selected")
+            R.id.nav_logout -> {
+                SharedPreferencesManager.clearAllPref()
+                showLogoutDialog()
+            }
+        }
+        drawerLayout.closeDrawer(GravityCompat.START)
+        return true
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.search_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                } else {
+                    drawerLayout.openDrawer(GravityCompat.START)
+                }
+                return true
+            }
+            R.id.action_search -> {
+                // Handle search icon click
+                Toast.makeText(this, "Search clicked", Toast.LENGTH_SHORT).show()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun toastCreator(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
     }
 }

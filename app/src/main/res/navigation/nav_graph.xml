@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/checkoutPageFragment">
+
+    <fragment
+        android:id="@+id/checkoutPageFragment"
+        android:name="com.adamco.ecommerceapp.view.fragments_for_checkout.CheckoutPageFragment"
+        android:label="fragment_checkout_page"
+        tools:layout="@layout/fragment_checkout_page" >
+        <action
+            android:id="@+id/action_checkoutPageFragment_to_deliveryPageFragment"
+            app:destination="@id/deliveryPageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/deliveryPageFragment"
+        android:name="com.adamco.ecommerceapp.view.fragments_for_checkout.DeliveryPageFragment"
+        android:label="fragment_delivery_page"
+        tools:layout="@layout/fragment_delivery_page" >
+        <action
+            android:id="@+id/action_deliveryPageFragment_to_paymentPageFragment"
+            app:destination="@id/paymentPageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/paymentPageFragment"
+        android:name="com.adamco.ecommerceapp.view.fragments_for_checkout.PaymentPageFragment"
+        android:label="fragment_payment_page"
+        tools:layout="@layout/fragment_payment_page" >
+        <action
+            android:id="@+id/action_paymentPageFragment_to_summaryPageFragment"
+            app:destination="@id/summaryPageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/summaryPageFragment"
+        android:name="com.adamco.ecommerceapp.view.fragments_for_checkout.SummaryPageFragment"
+        android:label="fragment_summary_page"
+        tools:layout="@layout/fragment_summary_page" />
+</navigation>

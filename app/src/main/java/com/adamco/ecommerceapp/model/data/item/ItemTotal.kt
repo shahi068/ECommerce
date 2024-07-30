@@ -6,5 +6,5 @@ data class ItemTotal(
     val description: String,
     val itemPrice: Double,
     var itemQuantity: Int,
-    val itemImg: Int
+    val itemImg: String
 )

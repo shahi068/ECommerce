@@ -36,30 +36,30 @@ class ItemCategoryAdapter(
                 txtRating.text = itemCategory.itemRating.toString()
                 txtItemPriceUpdate.text = "200" 
 
-                txtAddtoCart.setOnClickListener {
-                    val existingItem = databaseHelper.getItemByName(itemCategory.itemName)
-                    if (existingItem != null) {
-                        // If the item exists, increment the quantity
-                        existingItem.itemQuantity += 1
-                        databaseHelper.updateItem(existingItem)
-                        Toast.makeText(binding.root.context, "${existingItem.name} quantity updated in cart", Toast.LENGTH_SHORT).show()
-                    } else {
-                        // If the item does not exist, create a new record
-                        val newItem = ItemTotal(
-                            name = itemCategory.itemName,
-                            description = itemCategory.itemDesc,
-                            itemPrice = 200.0,
-                            itemQuantity = 1,
-                            itemImg = itemCategory.itemImg
-                        )
-                        val id = databaseHelper.insertData(newItem)
-                        if (id > -1) {
-                            Toast.makeText(binding.root.context, "${newItem.name} added to cart", Toast.LENGTH_SHORT).show()
-                        } else {
-                            Toast.makeText(binding.root.context, "Error adding ${newItem.name} to cart", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                }
+//                txtAddtoCart.setOnClickListener {
+//                    val existingItem = databaseHelper.getItemByName(itemCategory.itemName)
+//                    if (existingItem != null) {
+//                        // If the item exists, increment the quantity
+//                        existingItem.itemQuantity += 1
+//                        databaseHelper.updateItem(existingItem)
+//                        Toast.makeText(binding.root.context, "${existingItem.name} quantity updated in cart", Toast.LENGTH_SHORT).show()
+//                    } else {
+//                        // If the item does not exist, create a new record
+//                        val newItem = ItemTotal(
+//                            name = itemCategory.itemName,
+//                            description = itemCategory.itemDesc,
+//                            itemPrice = 200.0,
+//                            itemQuantity = 1,
+//                            itemImg = itemCategory.itemImg
+//                        )
+//                        val id = databaseHelper.insertData(newItem)
+//                        if (id > -1) {
+//                            Toast.makeText(binding.root.context, "${newItem.name} added to cart", Toast.LENGTH_SHORT).show()
+//                        } else {
+//                            Toast.makeText(binding.root.context, "Error adding ${newItem.name} to cart", Toast.LENGTH_SHORT).show()
+//                        }
+//                    }
+//                }
             }
         }
     }

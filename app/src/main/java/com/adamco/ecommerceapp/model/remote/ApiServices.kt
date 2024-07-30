@@ -1,5 +1,8 @@
 package com.adamco.ecommerceapp.model.remote
 
+import com.adamco.ecommerceapp.model.data.delivery_data.AddAddressRequest
+import com.adamco.ecommerceapp.model.data.delivery_data.AddAddressResponse
+import com.adamco.ecommerceapp.model.data.delivery_data.GetAddressesResponse
 import com.adamco.ecommerceapp.model.data.items_from_subcategory_data.SubcategoryItemResponse
 import com.adamco.ecommerceapp.model.data.login_data.LoginUserRequest
 import com.adamco.ecommerceapp.model.data.login_data.LoginUserSuccessResponse
@@ -34,4 +37,10 @@ interface ApiServices {
 
     @GET("SubCategory/products/{sub_category_id}")
     fun getItemsFromSubcategories(@Path("sub_category_id") subCategoryId : String) : Call<SubcategoryItemResponse>
+
+    @POST("User/address")
+    fun addAddress(@Body addAddressRequest : AddAddressRequest) : Call<AddAddressResponse>
+
+    @GET("User/addresses/{user_id}")
+    fun getAddresses(@Path("user_id") userID : Int) : Call<GetAddressesResponse>
 }

@@ -1,33 +1,47 @@
-package com.adamco.ecommerceapp.view
+package com.adamco.ecommerceapp.view.fragments_for_checkout
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import com.adamco.ecommerceapp.R
+import android.content.Intent
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.adamco.ecommerceapp.DatabaseHelper
-import com.adamco.ecommerceapp.databinding.ActivityCheckingOutPageBinding
+import com.adamco.ecommerceapp.databinding.FragmentCheckoutPageBinding
+import com.adamco.ecommerceapp.model.adapters.CheckingOutPageAdapter
 
-class CheckingOutPage : AppCompatActivity() {
-    private lateinit var binding: ActivityCheckingOutPageBinding
+
+class CheckoutPageFragment : Fragment() {
+    private lateinit var binding: FragmentCheckoutPageBinding
     private lateinit var databaseHelper: DatabaseHelper
-    private lateinit var checkingoutAdapter: com.adamco.ecommerceapp.model.adapters.CheckingOutPageAdapter
+    private lateinit var checkingoutAdapter: CheckingOutPageAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityCheckingOutPageBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        databaseHelper = DatabaseHelper(requireContext())
+    }
 
-        databaseHelper = DatabaseHelper(this)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentCheckoutPageBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
         updateTotalPrice() // Initial total price calculation
         initViews()
     }
 
     private fun initViews() {
-        with(binding){
+        with(binding) {
             btnNext.setOnClickListener {
-                val nextIntent = Intent(this@CheckingOutPage, DeliveryPage::class.java)
-                startActivity(nextIntent)
+                (activity as? CheckingOutTabLayout)?.switchToNextTab()
             }
         }
     }
@@ -40,7 +54,7 @@ class CheckingOutPage : AppCompatActivity() {
         ) { totalBill ->
             updateTotalPrice(totalBill)
         }
-        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.layoutManager = LinearLayoutManager(context)
         binding.recyclerView.adapter = checkingoutAdapter
     }
 

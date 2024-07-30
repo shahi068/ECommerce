@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.adamco.ecommerceapp.DatabaseHelper
 import com.adamco.ecommerceapp.databinding.CheckingoutItemDetailsBinding
 import com.adamco.ecommerceapp.model.data.item.ItemTotal
+import com.squareup.picasso.Picasso
 
 class SummaryPageAdapter(
     private val items: MutableList<ItemTotal>,
@@ -28,7 +29,7 @@ class SummaryPageAdapter(
         fun bind(item: ItemTotal) {
             with(binding) {
                 txtItem.text = item.name
-                itemImg.setImageResource(item.itemImg)
+                Picasso.get().load(item.itemImg).into(itemImg)
                 txtUnitPrice.text = item.itemPrice.toString()
                 txtQuantity.text = item.itemQuantity.toString()
                 txtTotalPrice.text = (item.itemPrice * item.itemQuantity).toString()

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.adamco.ecommerceapp.DatabaseHelper
 import com.adamco.ecommerceapp.databinding.ActivityShoppingCartBinding
 import com.adamco.ecommerceapp.model.data.item.ItemTotal
+import com.squareup.picasso.Picasso
 
 class ShoppingCartAdapter(
     private val items: MutableList<ItemTotal>,
@@ -29,7 +30,7 @@ class ShoppingCartAdapter(
         fun bind(item: ItemTotal) {
             with(binding) {
                 txtItem.text = item.name
-                itemImg.setImageResource(item.itemImg)
+                Picasso.get().load(item.itemImg).into(itemImg)
                 txtItemDesc.text = item.description
                 txtItemPriceUpdate.text = item.itemPrice.toString()
                 txtItemCount.text = item.itemQuantity.toString()

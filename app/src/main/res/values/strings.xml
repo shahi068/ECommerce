@@ -29,6 +29,10 @@
     <string name="payment_option_choice">Cash On Delivery</string>
     <string name="phone_number">Phone number</string>
     <string name="full_name">Full name</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="addAddress">ADD ADDRESS</string>
+    <string name="search">Search</string>
 </resources>

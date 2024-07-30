@@ -76,6 +76,10 @@ class SignInActivity : AppCompatActivity() {
                                 Toast.LENGTH_LONG
                             ).show()
                             saveUserInfo(email, password)
+
+                            val userIDStored = response.body()!!.user.user_id
+                            SharedPreferencesManager.saveString(SharedPreferencesManager.USER_ID, userIDStored)
+
                         } else {
                             Toast.makeText(
                                 this@SignInActivity,
@@ -108,7 +112,6 @@ class SignInActivity : AppCompatActivity() {
             }
         })
     }
-
 
     private fun isValidEmail(email: String): Boolean {
         return email.contains("@") && (email.contains(".com") || email.contains(".net") || email.contains(".org") || email.contains(".edu"))

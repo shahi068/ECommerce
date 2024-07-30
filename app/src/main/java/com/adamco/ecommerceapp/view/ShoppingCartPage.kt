@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.adamco.ecommerceapp.DatabaseHelper
 import com.adamco.ecommerceapp.databinding.ActivityShoppingCartPageBinding
 import com.adamco.ecommerceapp.model.adapters.ShoppingCartAdapter
+import com.adamco.ecommerceapp.view.fragments_for_checkout.CheckingOutTabLayout
 
 class ShoppingCartPage : AppCompatActivity() {
     private lateinit var binding: ActivityShoppingCartPageBinding
@@ -27,7 +28,7 @@ class ShoppingCartPage : AppCompatActivity() {
     private fun initViews() {
         with(binding){
             btnCheckout.setOnClickListener {
-                val intent = Intent(this@ShoppingCartPage, CheckingOutPage::class.java)
+                val intent = Intent(this@ShoppingCartPage, CheckingOutTabLayout::class.java)
                 startActivity(intent)
             }
         }
